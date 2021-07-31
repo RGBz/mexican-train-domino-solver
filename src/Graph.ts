@@ -6,16 +6,16 @@ import { longest } from './longest';
 type Cursor = LinkedListCursor<Graph>;
 
 export class Graph {
-  dominos: Domino[] = [];
+  dominoes: Domino[] = [];
   nodes: Map<DominoSide, Set<Domino>> = new Map();
 
-  static findLongestPath(dominos: Domino[], startingSide?: DominoSide): Domino[] {
-    return longest(Graph.generateAll(dominos).map((graph) => graph.findLongestPath(startingSide)));
+  static findLongestPath(dominoes: Domino[], startingSide?: DominoSide): Domino[] {
+    return longest(Graph.generateAll(dominoes).map((graph) => graph.findLongestPath(startingSide)));
   }
 
-  static generateAll(dominos: Domino[]): Graph[] {
+  static generateAll(dominoes: Domino[]): Graph[] {
     const root = new LinkedListNode(new Graph());
-    for (const domino of dominos) {
+    for (const domino of dominoes) {
       let didAdd = false;
       let cursor: Cursor = root;
       let prev: LinkedListNode<Graph> = cursor;
@@ -50,14 +50,14 @@ export class Graph {
   }
 
   add(domino: Domino): void {
-    this.dominos.push(domino);
+    this.dominoes.push(domino);
     for (const side of domino.sides) {
       this.nodes.set(side, (this.nodes.get(side) || new Set()).add(domino));
     }
   }
 
   merge(other: Graph): void {
-    for (const domino of other.dominos) {
+    for (const domino of other.dominoes) {
       this.add(domino);
     }
   }
@@ -66,12 +66,12 @@ export class Graph {
     if (!sideToConnectTo) {
       return longest([...this.sides].map((side) => this.findLongestPath(side)));
     }
-    const dominos = [...(this.nodes.get(sideToConnectTo) ?? [])].filter((domino) => !path.includes(domino));
-    if (dominos.length === 0) {
+    const dominoes = [...(this.nodes.get(sideToConnectTo) ?? [])].filter((domino) => !path.includes(domino));
+    if (dominoes.length === 0) {
       return path;
     }
     return longest(
-      dominos.map((domino) => this.findLongestPath(domino.getOtherSide(sideToConnectTo), path.concat(domino))),
+      dominoes.map((domino) => this.findLongestPath(domino.getOtherSide(sideToConnectTo), path.concat(domino))),
     );
   }
 }
