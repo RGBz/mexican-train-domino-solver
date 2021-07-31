@@ -10,6 +10,11 @@ describe('Domino', () => {
       expect(() => Domino.from(str)).toThrow();
     });
   });
+  describe('toString', () => {
+    test('should create a string representation of the domino', () => {
+      expect(Domino.from('1x2').toString()).toEqual('1x2');
+    });
+  });
   describe('canPair', () => {
     test('should respond with true when there are sides that match', () => {
       expect(Domino.from('1x2').canPair(Domino.from('2x3'))).toBe(true);
