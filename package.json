@@ -1,25 +1,24 @@
 {
-  "name": "bootup-ts",
+  "name": "mexican-train-domino-solver",
   "version": "1.0.0",
-  "description": "Project template for TypeScript and Jest.",
-  "main": "develop.js",
+  "description": "Longest chain builder for Mexican Train Dominoes",
+  "main": "src/index.ts",
   "scripts": {
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
-    "test": "jest --silent",
+    "test": "jest --coverage",
     "build": "tsc",
-    "start": "npm run build && node build/develop.js",
-    "develop": "nodemon"
+    "start": "npm run build && node build/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RGBz/bootup-ts.git"
+    "url": "git+https://github.com/RGBz/mexican-train-domino-solver.git"
   },
   "author": "RGBz",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/RGBz/bootup-ts/issues"
+    "url": "https://github.com/RGBz/mexican-train-domino-solver/issues"
   },
-  "homepage": "https://github.com/RGBz/bootup-ts#readme",
+  "homepage": "https://github.com/RGBz/mexican-train-domino-solver#readme",
   "devDependencies": {
     "@types/jest": "^26.0.20",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
@@ -27,36 +26,9 @@
     "eslint": "^7.20.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-prettier": "^3.3.1",
-    "husky": "^5.0.9",
     "jest": "^26.6.3",
-    "lint-staged": "^10.5.4",
-    "nodemon": "^2.0.7",
     "prettier": "^2.2.1",
     "ts-jest": "^26.5.1",
-    "ts-node": "^9.1.1",
     "typescript": "^4.1.5"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "eslint --fix"
-    ]
-  },
-  "nodemonConfig": {
-    "ignore": [
-      "**/*.test.ts",
-      "**/*.spec.ts",
-      ".git",
-      "node_modules"
-    ],
-    "watch": [
-      "src"
-    ],
-    "exec": "npm start",
-    "ext": "ts tsx"
   }
 }
