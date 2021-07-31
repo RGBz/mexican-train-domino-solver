@@ -1,7 +1,7 @@
 import { Domino } from './Domino';
 import { DominoSide } from './DominoSide';
 import { LinkedListCursor, LinkedListNode } from './LinkedListNode';
-import { longest } from './longest';
+import { findMostValuableChain } from './findMostValuableChain';
 
 type Cursor = LinkedListCursor<Graph>;
 
@@ -9,8 +9,8 @@ export class Graph {
   dominoes: Domino[] = [];
   nodes: Map<DominoSide, Set<Domino>> = new Map();
 
-  static findLongestPath(dominoes: Domino[], startingSide?: DominoSide): Domino[] {
-    return longest(Graph.generateAll(dominoes).map((graph) => graph.findLongestPath(startingSide)));
+  static findMostValuableChain(dominoes: Domino[], startingSide?: DominoSide): Domino[] {
+    return findMostValuableChain(Graph.generateAll(dominoes).map((graph) => graph.findMostValuableChain(startingSide)));
   }
 
   static generateAll(dominoes: Domino[]): Graph[] {
@@ -62,16 +62,16 @@ export class Graph {
     }
   }
 
-  findLongestPath(sideToConnectTo?: DominoSide, path: Domino[] = []): Domino[] {
-    if (!sideToConnectTo) {
-      return longest([...this.sides].map((side) => this.findLongestPath(side)));
+  findMostValuableChain(sideToConnectTo?: DominoSide, path: Domino[] = []): Domino[] {
+    if (sideToConnectTo === undefined) {
+      return findMostValuableChain([...this.sides].map((side) => this.findMostValuableChain(side)));
     }
     const dominoes = [...(this.nodes.get(sideToConnectTo) ?? [])].filter((domino) => !path.includes(domino));
     if (dominoes.length === 0) {
       return path;
     }
-    return longest(
-      dominoes.map((domino) => this.findLongestPath(domino.getOtherSide(sideToConnectTo), path.concat(domino))),
+    return findMostValuableChain(
+      dominoes.map((domino) => this.findMostValuableChain(domino.getOtherSide(sideToConnectTo), path.concat(domino))),
     );
   }
 }

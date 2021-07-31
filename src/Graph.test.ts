@@ -49,21 +49,15 @@ describe('Graph', () => {
     });
   });
 
-  describe('findLongestPath', () => {
-    test('should respond with the longest path for a set of dominoes', () => {
+  describe('findMostValuableChain', () => {
+    test('should respond with the most valuable chain for a given set of dominoes', () => {
       const dominoes = ['1x2', '7x8', '3x4', '5x1', '3x1', '6x7'].map(Domino.from);
-      const path = Graph.findLongestPath(dominoes);
-      expect(new Set(path)).toStrictEqual(
-        new Set([
-          new Domino([DominoSide.THREE, DominoSide.FOUR]),
-          new Domino([DominoSide.THREE, DominoSide.ONE]),
-          new Domino([DominoSide.ONE, DominoSide.TWO]),
-        ]),
-      );
+      const path = Graph.findMostValuableChain(dominoes);
+      expect(new Set(path)).toStrictEqual(new Set([Domino.from('5x1'), Domino.from('3x1'), Domino.from('3x4')]));
     });
     test('should respond with an empty list if the starting side is not found', () => {
       const dominoes = ['1x2', '7x8', '3x4', '5x1', '3x1', '6x7'].map(Domino.from);
-      const path = Graph.findLongestPath(dominoes, DominoSide.TWELVE);
+      const path = Graph.findMostValuableChain(dominoes, DominoSide.TWELVE);
       expect(new Set(path)).toStrictEqual(new Set([]));
     });
   });

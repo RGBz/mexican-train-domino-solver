@@ -6,7 +6,7 @@ if (process.argv.length !== 4) {
 }
 
 console.log(
-  Graph.findLongestPath(process.argv[2].split(',').map(Domino.from), Number(process.argv[3]))
+  Graph.findMostValuableChain(process.argv[2].split(',').map(Domino.from), Number(process.argv[3]))
     .map((domino) => domino.toString())
     .join('\n'),
 );

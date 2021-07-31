@@ -1,5 +1,6 @@
 export enum DominoSide {
-  ONE = 1,
+  BLANK = 0,
+  ONE,
   TWO,
   THREE,
   FOUR,
